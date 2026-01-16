@@ -38,5 +38,31 @@ namespace ReferenceArtisan.Controllers
             return Ok();
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, Projects project) 
+        {
+          if ( id != project.Id)
+          {
+            return BadRequest("Los ids no coinciden.")
+          }
+          context.Update(project);
+          await context.SaveChangesAsync();
+          return Ok();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id) 
+        {
+          var registrorBorrados = await context.Projects.Where(
+            x => x.Id == id
+            ).ExecutableDeleteAsync();
+        
+          if ( registrosBorrados == 0 )
+          {
+            return NotFound();
+          }
+          return Ok();
+        }
+
     }
 }
