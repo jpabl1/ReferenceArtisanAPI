@@ -43,7 +43,7 @@ namespace ReferenceArtisan.Controllers
         {
           if ( id != project.Id)
           {
-            return BadRequest("Los ids no coinciden.")
+              return BadRequest("Los ids no coinciden.");
           }
           context.Update(project);
           await context.SaveChangesAsync();
@@ -55,9 +55,9 @@ namespace ReferenceArtisan.Controllers
         {
           var registrorBorrados = await context.Projects.Where(
             x => x.Id == id
-            ).ExecutableDeleteAsync();
+            ).ExecuteDeleteAsync();
         
-          if ( registrosBorrados == 0 )
+          if ( registrorBorrados == 0 )
           {
             return NotFound();
           }
